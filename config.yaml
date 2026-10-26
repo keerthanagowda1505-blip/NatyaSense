@@ -1,0 +1,108 @@
+# NatyaSense configuration (edited for Mudra, Pada Bheda and Pose).
+# Paths are relative to the project root (or to --root).
+paths:
+  raw_dir: data/raw
+  manifest: data/manifest.csv
+  landmark_dir: data/interim/landmarks
+  feature_dir: data/interim/features
+  models_dir: models
+  report_dir: models/reports
+  output_dir: outputs
+  history_db: outputs/history.sqlite
+
+tasks: [mudra, padabheda, pose]     # folder names inside data/raw
+
+mediapipe:
+  pose_model: models/mediapipe/pose_landmarker_full.task
+  hand_model: models/mediapipe/hand_landmarker.task
+  pose_url: https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task
+  hand_url: https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
+  min_pose_confidence: 0.5
+  min_hand_confidence: 0.3
+  roi_scale: 3.0          # hand ROI side = roi_scale * |wrist - index| (pixels)
+  roi_min_px: 224
+  roi_upscale_to: 256     # small crops are enlarged to this side before detection
+  swap_handedness: true   # MediaPipe assumes mirrored input; our frames are NOT mirrored
+  max_image_side: 1600    # larger frames are downscaled before detection
+
+extraction:
+  fps: {mudra: 5, padabheda: 5, pose: 5}   # sampling rate used for video files
+  max_frames_per_file: 300
+  smooth_video: true
+  smooth_min_cutoff: 1.0
+  smooth_beta: 4.0
+  max_gap_frames: 5
+
+training:
+  seed: 42
+  test_size: 0.15
+  val_size: 0.15
+  split_trials: 300
+  min_visibility: 0.5
+  max_frames_per_file_train: 60
+  reference_prefix: ref           # files starting with "ref" are reference photos (not used for training)
+  mudra:
+    model: mlp                    # mlp | hgb
+    oversample_cap: 4
+    slot_swap_augment: true
+    use_pair_specialists: true
+  padabheda:
+    model: hgb
+  pose:
+    model: hgb
+
+# Confusable mudra pairs (labels must match your folder names after normalisation)
+confusable_pairs:
+  - {a: chatura, b: hamsapaksha, hint: "Check the thumb and little-finger position."}
+  - {a: bhramara, b: katakamukha, hint: "Check the index finger against the middle finger."}
+  - {a: hamsasya, b: hamsapaksha, hint: "Check whether the hand is held upward or backward."}
+  - {a: kapittha, b: karkata, hint: "Slight differences in how the hands are coupled change the meaning; confirm the exact hand form."}
+  - {a: tripataka, b: ardhapataka, hint: "Check finger curvature, thumb placement and spacing."}
+  - {a: katakamukha, b: mayura, hint: "Check the finger and thumb formation."}
+  - {a: katakamukha, b: hamsasya, hint: "Check the finger and thumb formation."}
+  - {a: alapadma, b: sandamsha, hint: "Check the finger and thumb formation."}
+
+# Spelling variants found in folder names -> canonical label.
+# Folder names are lowercased and spaces become "_" automatically (Kali devi -> kali_devi).
+label_aliases:
+  chathura: chatura
+  hamsapakshaka: hamsapaksha
+  samdamsha: sandamsha
+  sandamsa: sandamsha
+  kapitthasya: kapittha
+  kapitta: kapittha
+  trishoola: trishula
+  suchimukha: suchi
+  kartarisvastika: kartariswastika
+  svastika: swastika
+  anchita: anchitha
+  hayata: hayatham
+
+bani_aliases:
+  kalakshetra: kalakshetra
+
+levels:               # multiplier applied to tolerance-band width
+  beginner: 1.5
+  intermediate: 1.2
+  advanced: 1.0
+
+bands:
+  inner_k: 1.0
+  outer_k: 2.0
+  min_frames: 4               # lowered from 30 (small prototype dataset)
+  min_demonstrators: 1        # lowered from 2 (single reference source)
+  max_steps: 12
+
+inference:
+  tau: 0.70                  # minimum calibrated confidence before corrections are issued
+  smooth_frames: 7           # recognition probabilities are averaged over this many frames
+  persist_seconds: 0.6       # a violation must last this long before it is shown
+  release_seconds: 0.5       # and must be absent this long before it disappears
+  max_messages: 2
+  min_visibility: 0.5
+
+server:
+  host: 0.0.0.0
+  port: 5000
+  max_video_seconds: 30
+  upload_dir: outputs/uploads

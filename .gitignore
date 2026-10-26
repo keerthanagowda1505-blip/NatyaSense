@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+models/mediapipe/*.task
+data/raw/
+data/interim/
+data/manifest.csv
+outputs/
