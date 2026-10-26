@@ -1,0 +1,27 @@
+Wrote 128 rows to C:\Users\hp\Documents\NatyaSense\data\manifest.csv
+
+task       label            train  ref
+mudra      alapadma            16    4
+mudra      tripataka           16    4
+padabheda  anchita             16    4
+padabheda  hayatham            16    4
+pose       kali_devi           20    4
+pose       krishna             20    4
+
+Checks:
+  MISSING folder: mudra / kapittha
+  MISSING folder: mudra / katakamukha
+  MISSING folder: mudra / chatura
+  MISSING folder: mudra / bhramara
+  MISSING folder: mudra / hamsasya
+  MISSING folder: mudra / hamsapaksha
+  MISSING folder: mudra / sandamsha
+  MISSING folder: mudra / karkata
+  MISSING folder: mudra / ardhapataka
+  MISSING folder: mudra / mayura
+  MISSING folder: padabheda / kunchita
+  MISSING folder: padabheda / sampada
+  MISSING folder: padabheda / ekapada
+  MISSING folder: pose / lakshmi_devi
+  MISSING folder: pose / parvathi_devi
+  MISSING folder: pose / nataraja
