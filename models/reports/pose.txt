@@ -1,0 +1,17 @@
+Task: pose   model: hgb
+Train photos: 40   Test photos: 8
+Accuracy: 87.50%
+
+              precision    recall  f1-score   support
+
+   kali_devi       0.80      1.00      0.89         4
+     krishna       1.00      0.75      0.86         4
+
+    accuracy                           0.88         8
+   macro avg       0.90      0.88      0.87         8
+weighted avg       0.90      0.88      0.87         8
+
+Confusion matrix (rows = true, cols = predicted)
+Labels: ['kali_devi', 'krishna']
+[[4 0]
+ [1 3]]
