@@ -5,4 +5,4 @@ models/mediapipe/*.task
 data/raw/
 data/interim/
 data/manifest.csv
-outputs/
+outputs/models/*.joblib
