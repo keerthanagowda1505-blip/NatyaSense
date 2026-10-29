@@ -6,3 +6,6 @@ data/raw/
 data/interim/
 data/manifest.csv
 outputs/models/*.joblib
+natyasense.db
+uploads/
+models/*.joblib
