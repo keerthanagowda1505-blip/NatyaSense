@@ -1,3 +1,4 @@
+outputs/preview/
 # Environment variables and secrets
 .env
 .env.*
