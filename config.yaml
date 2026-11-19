@@ -42,7 +42,7 @@ training:
   max_frames_per_file_train: 60
   reference_prefix: ref           # files starting with "ref" are reference photos (not used for training)
   mudra:
-    model: mlp                    # mlp | hgb
+    model: mlp                 # mlp | hgb
     oversample_cap: 4
     slot_swap_augment: true
     use_pair_specialists: true

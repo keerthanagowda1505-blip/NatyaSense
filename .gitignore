@@ -1,3 +1,11 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.pem
+*.key
 venv/
 __pycache__/
 *.pyc

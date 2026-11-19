@@ -13,7 +13,7 @@ EXPECTED = {
     "mudra": ["kapittha", "katakamukha", "alapadma", "chatura", "bhramara",
               "hamsasya", "hamsapaksha", "sandamsha", "karkata",
               "tripataka", "ardhapataka", "mayura"],
-    "padabheda": ["hayatham", "anchita", "kunchita", "sampada", "ekapada"],
+    "padabheda": ["hayatham", "anchita", "kunchita", "samapada", "ekapada"],
     "pose": ["lakshmi_devi", "krishna", "kali_devi", "parvathi_devi",
              "nataraja"],
 }
